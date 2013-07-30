@@ -1,0 +1,57 @@
+%btn-posts {
+  padding: 0.8em 1.6em;
+  color: #fff;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+@mixin btn-with-hover($c-orig, $c-hover) {
+  @extend %btn-posts;
+
+  background: $c-orig;
+  &:hover {
+    background: $c-hover;
+  }
+}
+
+.btn-green {
+  @include btn-with-hover(#43aa00, #437700);
+}
+
+.is-btn-green-selected {
+  @include btn-with-hover(#225500, #213300);
+}
+
+.btn-orange {
+  @include btn-with-hover(#FF6500, #dd4300);
+}
+
+.btn-yellow {
+  @include btn-with-hover(#FFab00, #ddab00);
+  color: #543;
+}
+
+.btn-gray {
+  @include btn-with-hover(#ccdccd, #aabaab);
+  color: #543;
+}
+
+.post {
+  a.p-title {
+    font-weight: bold;
+  }
+  padding: 0.2em 0 1em 0;
+}
+
+.post-row {
+  margin-bottom: 3em;
+}
+
+.post-edit-row {
+  margin-bottom: 1.6em;
+}
+
+h2.post-title {
+  margin: 0;
+}

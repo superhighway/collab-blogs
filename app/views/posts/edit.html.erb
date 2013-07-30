@@ -1,0 +1,11 @@
+<div class="post-edit-row">
+  <h2 class="post-title">Editing "<%= @post.title %>"</h2>
+  <div class="smaller">
+  Written by <%= current_user && current_user.id == @post.user_id ? "You" : @post.user.email %>, <%= time_ago_in_words @post.created_at %> ago
+  </div>
+</div>
+
+<%= render 'form' %>
+
+<%= link_to 'View', @post %> |
+<%= link_to 'Back', posts_path %>

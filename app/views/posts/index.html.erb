@@ -1,0 +1,53 @@
+<% if current_user %>
+<div class="post-row">
+  <div class="posts-filter float-left">
+    <%= link_to "Feed", list_posts_path(list: "feed"), class: ['btn-green', pf_selected_class(["feed", nil, ""], params[:list])] %>
+    <%= link_to "Me", list_posts_path(list: "me"), class: ['btn-green', pf_selected_class("me", params[:list])] %>
+    <%= link_to "With Friends", list_posts_path(list: "with_friends"), class: ['btn-green', pf_selected_class("with_friends", params[:list])] %>
+  </div>
+
+  <div class="float-right">
+    <%= link_to '+New Post', new_post_path, class: "btn-orange" %>
+  </div>
+
+  <div class="clearfix"></div>
+</div>
+<% else %>
+<div class="small-hero">
+  Hey there! CollabBlogs is your next stop for writing blog posts collaboratively. You are currently seeing some of writings from our beloved community.
+</div>
+<% end %>
+
+
+<div class="posts">
+  <% if @posts.present? %>
+    <% @posts.each do |post| %>
+      <div class="post">
+        <div class="float-left">
+          <div>
+            <%= link_to post.title, post, class: "p-title" %> <span class="smaller">by <%= current_user && current_user.id == post.user_id ? "You" : post.user.email %></span>
+          </div>
+          <div class="smaller">
+            Written <%= time_ago_in_words post.created_at %> ago
+          </div>
+          <div class="text-gray">
+            <%= truncate(post.content, length: 60, separator: ' ') %>
+          </div>
+        </div>
+
+        <div class="float-right smaller">
+          <%=
+            link_to 'View', post_path(post), class: 'btn-green thinner-padding'
+          %><%=
+            link_to('Edit', edit_post_path(post), class: 'btn-yellow thinner-padding') if can?(:edit, post)
+          %><%=
+            link_to('Del', post, class: 'btn-gray thinner-padding', method: :delete, data: { confirm: 'Are you sure?' }) if can?(:destroy, post)
+          %>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    <% end %>
+  <% else %>
+    Oops! No posts yet.
+  <% end %>
+</div>

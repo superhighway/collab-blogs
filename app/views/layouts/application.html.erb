@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CollabBlogs: Your next stop for collaborative writing platform</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<div class="menu-top">
+  <div class="float-left">
+  	<h1><%= link_to "CollabBlogs", "/" %></h1>
+  </div>
+  <div class="float-right">
+    <% if current_user %>
+      <div>
+        Hello, <span class="text-gray"><%= current_user.email %></span>
+      </div>
+      <div class="smaller">
+        <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
+      </div>
+    <% else %>
+      <%= link_to "Sign in", new_user_session_path %> |
+      <%= link_to "Join us", new_user_registration_path %>
+    <% end %>
+  </div>
+  <div class="clearfix"></div>
+</div>
+
+<% flash.each do |k, v| %>
+  <div id="flash-<%= k %>" class="flash-message"><%= v %></div>
+<% end %>
+
+<div class="content">
+  <%= yield %>
+</div>
+
+<div class="footer smaller">
+  <p>This is an example of using Devise with CanCan. You can <%= link_to 'view the source code in GitHub', '#' %>.</p>
+</div>
+
+<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+
+</body>
+</html>

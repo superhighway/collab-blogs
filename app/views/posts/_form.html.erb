@@ -1,0 +1,33 @@
+<%= form_for(@post) do |f| %>
+  <% if @post.errors.any? %>
+    <div id="error_explanation">
+      <h3><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h3>
+
+      <ul>
+      <% @post.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %><br/>
+    <%= f.text_field :title, size: 40 %>
+  </div>
+  <div class="field">
+    <%= f.label :content %><br/>
+    <%= f.text_area :content, cols: 60, rows: 10 %>
+  </div>
+  <div class="field">
+    <%= f.check_box :restricted %>
+    <%= f.label :restricted, "Only Readable by Me and My Collaborators" %>
+  </div>
+  <div class="field">
+    <%= f.label :collaborator_emails, "Collaborators" %><br/>
+    <%= f.select :collaborator_emails, User.where("id != ?", current_user.id).select(:email).distinct.pluck(:email), {}, { multiple: true, style: "width: 31em;", class: "js-select2" } %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

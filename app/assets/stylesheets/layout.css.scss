@@ -1,0 +1,93 @@
+body {
+  color: #765;
+  width: 40em;
+  margin: 0 auto;
+  font: 18px/1.4 'Avenir', Helvetica, Arial, sans-serif;
+}
+
+form div {
+  margin-bottom: 0.6em;
+}
+
+h2 {
+  color: #132;
+}
+
+a {
+  color: #456f39;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.menu-top,
+.content,
+.footer {
+  padding: 1em 2em;
+}
+
+.menu-top {
+  background: #DEFFB5;
+  color: #333;
+
+  a {
+    text-decoration: none;
+    color: #1D6B27;
+    &:hover {
+      color: #967408;
+    }
+  }
+}
+
+.small-hero {
+  font-size: 0.9em;
+  background: #858;
+  margin-bottom: 2em;
+  padding: 0.8em 1.2em;
+  color: #fff;
+}
+
+.footer {
+  border: #cba 1px dashed;
+  background: #ffe;
+  text-align: center;
+}
+
+.flash-message {
+  font-size: 0.9em;
+  padding: 0.4em 2.4em;
+  background: #eee;
+}
+
+#flash-notice {
+  color: #cfc;
+  background: #385;
+}
+
+#flash-error, #flash-alert {
+  color: #fcc;
+  background: #a21;
+}
+
+#error_explanation {
+  h1, h2, h3 {
+    color: #fff;
+    font-weight: normal;
+  }
+  padding: 0.1em 1.2em;
+  font-size: 0.9em;
+  color: #fcc;
+  background: #A60C14;
+}
+
+.field_with_errors {
+  display: inline;
+  margin: 0; padding: 0;
+  color: #A60C14;
+  background: #eee;
+}
+
+.row {
+  margin-bottom: 1em;
+}
