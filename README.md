@@ -36,7 +36,31 @@ Installing via [Rails Installer](http://railsinstaller.org/):
     gem install rails
     ```
 
-## Steps
+## Running App, Tests, and Specs
+
+### Running App
+
+```bash
+rake db:migrate
+rake db:seed
+rails s
+```
+
+### Running Tests
+
+```bash
+rake db:migrate RAILS_ENV=test
+rake test
+```
+
+### Running Specs
+
+```bash
+rake db:migrate RAILS_ENV=spec
+rake spec
+```
+
+## Steps to Recreate the App
 
 ### Preparing Initial Structure
 
