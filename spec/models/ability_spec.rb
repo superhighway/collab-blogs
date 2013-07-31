@@ -34,19 +34,47 @@ describe Ability do
     describe "collaboration" do
       let(:collab_post) {
         post = posts(:four)
-        post.restricted = true
         post.collaborations << Collaboration.new(user_id: user.id, post_id: post.id)
         post
       }
 
-      # alternatively:
-      # it { subject.should be_able_to(:index, post) }
-      it { should be_able_to(:index, collab_post) }
-      
-      it { should be_able_to(:show, collab_post) }
-      it { should be_able_to(:update, collab_post) }
-      it { should be_able_to(:edit, collab_post) }
-      it { should_not be_able_to(:destroy, collab_post) }
+      context "as a collaborator logged-in user" do
+        # alternatively:
+        # it { subject.should be_able_to(:index, post) }
+        it { should be_able_to(:index, collab_post) }
+
+        it { should be_able_to(:show, collab_post) }
+        it { should be_able_to(:update, collab_post) }
+        it { should be_able_to(:edit, collab_post) }
+        it { should_not be_able_to(:destroy, collab_post) }
+      end
+
+      context "as a guest user" do
+        let(:subject) { Ability.new nil }
+
+        it { should be_able_to(:index, collab_post) }
+        it { should be_able_to(:show, collab_post) }
+        it { should_not be_able_to(:update, collab_post) }
+        it { should_not be_able_to(:edit, collab_post) }
+        it { should_not be_able_to(:destroy, collab_post) }
+      end
+
+      describe "restricted post" do
+        context "as a collaborator" do
+          let(:collab_post) {
+            post = posts(:four)
+            post.restricted = true
+            post.collaborations << Collaboration.new(user_id: user.id, post_id: post.id)
+            post
+          }
+
+          it { should be_able_to(:index, collab_post) }
+          it { should be_able_to(:show, collab_post) }
+          it { should be_able_to(:update, collab_post) }
+          it { should be_able_to(:edit, collab_post) }
+          it { should_not be_able_to(:destroy, collab_post) }
+        end
+      end
     end
   end
 

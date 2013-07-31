@@ -22,13 +22,12 @@ restricted = ? OR posts.user_id = ? OR (restricted = ? AND EXISTS
         end
 
         editable_condition = <<-EOC
-posts.user_id = ? OR (restricted = ? AND EXISTS
-  (SELECT * FROM collaborations WHERE collaborations.post_id = posts.id AND collaborations.user_id = ?))
+posts.user_id = ? OR EXISTS
+  (SELECT * FROM collaborations WHERE collaborations.post_id = posts.id AND collaborations.user_id = ?)
         EOC
         can [:edit, :update], Post, [editable_condition, user.id, true, user.id] do |post|
           post.user_id == user.id ||
-            (post.restricted? &&
-             post.collaborations.where(user_id: user.id).present?)
+             post.collaborations.where(user_id: user.id).present?
         end
       end
 

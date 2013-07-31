@@ -82,8 +82,9 @@ describe PostsController do
   end
 
   describe "#edit" do
+    let(:edited_post) { posts(:three) }
     def perform_request
-      get :edit, id: posts(:three)
+      get :edit, id: edited_post
     end
 
     it "redirects to sign in page for a guest user" do
@@ -98,7 +99,13 @@ describe PostsController do
       response.should be_success
     end
 
-    it "works for post's collaborator"
+    it "works for post's collaborator" do
+      collaborator = users(:four)
+      edited_post.collaborators << collaborator
+      sign_in collaborator
+      perform_request
+      response.should be_success
+    end
 
     it "is unauthorized for other users" do
       sign_in users(:four)
@@ -134,7 +141,13 @@ describe PostsController do
       response.should redirect_to(updated_post)
     end
 
-    it "works for post's collaborator"
+    it "works for post's collaborator" do
+      collaborator = users(:four)
+      updated_post.collaborators << collaborator
+      sign_in collaborator
+      perform_request
+      response.should redirect_to(updated_post)
+    end
 
     it "is unauthorized for other users" do
       sign_in users(:four)
